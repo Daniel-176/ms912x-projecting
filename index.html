@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>White Analog Clock</title>
+<style>
+body{margin:0;height:100vh;background:#f8f8f8;display:flex;justify-content:center;align-items:center;font-family:Arial,Helvetica,sans-serif;}
+#clock{position:relative;width:320px;height:320px;border:8px solid #333;border-radius:50%;background:#fff;box-shadow:0 0 10px rgba(0,0,0,.15);}
+.hand{position:absolute;left:50%;bottom:50%;transform-origin:bottom;background:#333;border-radius:2px;transform:translateX(-50%);}
+.hour{width:6px;height:80px;}
+.minute{width:4px;height:120px;}
+.second{width:2px;height:150px;background:#e53935;}
+.center{position:absolute;width:12px;height:12px;background:#333;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);}
+.number{position:absolute;display:flex;justify-content:center;align-items:center;font-size:1rem;color:#222;background:rgba(255,255,255,.8);border-radius:50%;width:32px;height:32px;transform:translateX(-50%) translateY(-140px);}/* place numbers around clock */
+</style>
+</head>
+<body>
+<div id="clock">
+  <!-- Hour numbers 12-11 around the face -->
+  <div class="number" style="transform:rotate(0deg) translate(-50%,-140px);">12</div>
+  <div class="number" style="transform:rotate(30deg) translate(-50%,-140px);">1</div>
+  <div class="number" style="transform:rotate(60deg) translate(-50%,-140px);">2</div>
+  <div class="number" style="transform:rotate(90deg) translate(-50%,-140px);">3</div>
+  <div class="number" style="transform:rotate(120deg) translate(-50%,-140px);">4</div>
+  <div class="number" style="transform:rotate(150deg) translate(-50%,-140px);">5</div>
+  <div class="number" style="transform:rotate(180deg) translate(-50%,-140px);">6</div>
+  <div class="number" style="transform:rotate(210deg) translate(-50%,-140px);">7</div>
+  <div class="number" style="transform:rotate(240deg) translate(-50%,-140px);">8</div>
+  <div class="number" style="transform:rotate(270deg) translate(-50%,-140px);">9</div>
+  <div class="number" style="transform:rotate(300deg) translate(-50%,-140px);">10</div>
+  <div class="number" style="transform:rotate(330deg) translate(-50%,-140px);">11</div>
+
+  <div class="hand hour" id="hour"></div>
+  <div class="hand minute" id="minute"></div>
+  <div class="hand second" id="second"></div>
+  <div class="center"></div>
+</div>
+<script>
+function tick(){
+  const now=new Date();
+  const sec=now.getSeconds();
+  const min=now.getMinutes();
+  const hr=now.getHours()%12;
+  const secDeg=sec*6;
+  const minDeg=min*6+sec*0.1;
+  const hrDeg=hr*30+min*0.5;
+  document.getElementById('second').style.transform=`translateX(-50%) rotate(${secDeg}deg)`;
+  document.getElementById('minute').style.transform=`translateX(-50%) rotate(${minDeg}deg)`;
+  document.getElementById('hour').style.transform=`translateX(-50%) rotate(${hrDeg}deg)`;
+}
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',()=>{tick();setInterval(tick,1000);});
+}else{tick();setInterval(tick,1000);}
+</script>
+</body>
+</html>
